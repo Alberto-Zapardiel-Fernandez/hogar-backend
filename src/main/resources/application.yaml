@@ -1,21 +1,5 @@
 spring:
+  profiles:
+    active: local # Indica a Spring que cargue el archivo application-local.yml
   application:
     name: hogar-backend
-
-datasource:
-  url: jdbc:postgresql://${DB_HOST:localhost}:5432/${DB_NAME:hogar_db}
-  username: ${DB_USER}
-  password: ${DB_PASSWORD} # <-- Sin valor por defecto. Si no se provee, la app no arranca.
-  driver-class-name: org.postgresql.Driver
-
-  jpa:
-    database-platform: org.hibernate.dialect.PostgreSQLDialect
-    hibernate:
-      ddl-auto: update # Genera o actualiza las tablas automáticamente en local según nuestras entidades
-    show-sql: true # Muestra las consultas SQL en la consola para poder auditar qué hace Hibernate
-    properties:
-      hibernate:
-        format_sql: true # Formatea el SQL de la consola para que sea legible
-
-server:
-  port: 8080 # Puerto por defecto del backend
