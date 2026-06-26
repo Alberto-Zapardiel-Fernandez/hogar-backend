@@ -2,4 +2,4 @@ spring:
   profiles:
     active: local # Indica a Spring que cargue el archivo application-local.yml
   application:
-    name: hogar-backend
+    name: casally-backend

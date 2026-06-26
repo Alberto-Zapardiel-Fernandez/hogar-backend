@@ -8,7 +8,7 @@
 		<version>4.1.0</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.hogar</groupId>
+	<groupId>com.casally</groupId>
 	<artifactId>backend</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name/>
@@ -19,6 +19,11 @@
 		<lombok-mapstruct-binding.version>0.2.0</lombok-mapstruct-binding.version>
 	</properties>
 	<dependencies>
+		<dependency>
+			<groupId>io.swagger.core.v3</groupId>
+			<artifactId>swagger-annotations</artifactId>
+			<version>2.2.22</version>
+		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
@@ -144,22 +149,17 @@
 							<goal>generate</goal>
 						</goals>
 						<configuration>
-							<!-- Ruta donde guardaremos el contrato YAML -->
 							<inputSpec>${project.basedir}/src/main/resources/openapi/openapi.yaml</inputSpec>
 							<generatorName>spring</generatorName>
-							<!-- Paquetes de destino para el código autogenerado -->
-							<apiPackage>com.hogar.backend.infrastructure.api</apiPackage>
-							<modelPackage>com.hogar.backend.infrastructure.dto</modelPackage>
 							<configOptions>
-								<!-- Solo queremos que genere las Interfaces, la lógica la implementamos nosotros -->
 								<interfaceOnly>true</interfaceOnly>
-								<!-- Fuerza el uso del namespace jakarta.* en vez de javax.* (Obligatorio en Spring Boot 3) -->
-								<useSpringBoot3>true</useSpringBoot3>
-								<!-- Evita envolver propiedades opcionales en JsonNullable (simplifica los DTOs) -->
+								<useJakartaEe>true</useJakartaEe>
+								<useTags>true</useTags>
+								<skipDefaultInterface>true</skipDefaultInterface>
 								<openApiNullable>false</openApiNullable>
-								<!-- Delega el control de excepciones globales al framework -->
-								<unhandledException>true</unhandledException>
 							</configOptions>
+							<apiPackage>com.casally.backend.controller</apiPackage>
+							<modelPackage>com.casally.backend.dto</modelPackage>
 						</configuration>
 					</execution>
 				</executions>

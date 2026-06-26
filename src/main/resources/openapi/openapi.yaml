@@ -1,11 +1,137 @@
 openapi: 3.0.3
 info:
-  title: API de Gestión del Hogar
-  description: Contrato de servicios para el ecosistema de la app doméstica (Finanzas, Agenda, etc.)
+  title: API de Casally
+  description: Contrato de servicios para el SaaS de gestión financiera familiar.
   version: 1.0.0
 servers:
   - url: http://localhost:8080
     description: Servidor de Desarrollo Local
 
-# Definición de rutas (vía libre para llenarlo con los endpoints reales más adelante)
-paths: {}
+paths:
+  /api/v1/categories:
+    get:
+      tags:
+        - Categories
+      summary: Listar todas las categorías del hogar
+      operationId: getCategories
+      responses:
+        '200':
+          description: Lista de categorías obtenida con éxito
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CategoryDTO'
+    post:
+      tags:
+        - Categories
+      summary: Crear una nueva categoría
+      operationId: createCategory
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CategoryDTO'
+      responses:
+        '201':
+          description: Categoría creada con éxito
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CategoryDTO'
+
+  /api/v1/movements:
+    get:
+      tags:
+        - Movements
+      summary: Listar los movimientos financieros del hogar
+      operationId: getMovements
+      responses:
+        '200':
+          description: Lista de movimientos obtenida con éxito
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/MovementDTO'
+    post:
+      tags:
+        - Movements
+      summary: Registrar un nuevo movimiento (ingreso o gasto)
+      operationId: createMovement
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MovementDTO'
+      responses:
+        '201':
+          description: Movimiento registrado con éxito
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MovementDTO'
+
+components:
+  schemas:
+    CategoryDTO:
+      type: object
+      required:
+        - id
+        - name
+        - type
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 1
+        name:
+          type: string
+          example: "Alimentación"
+        type:
+          type: string
+          enum: [INGRESO, GASTO]
+          example: "GASTO"
+
+    MovementDTO:
+      type: object
+      required:
+        - id
+        - description
+        - amount
+        - type
+        - date
+        - categoryId
+        - userId
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: "123e4567-e89b-12d3-a456-426614174000"
+        description:
+          type: string
+          example: "Compra semanal Mercadona"
+        amount:
+          type: number
+          format: double
+          example: 64.50
+        type:
+          type: string
+          enum: [INGRESO, GASTO]
+          example: "GASTO"
+        date:
+          type: string
+          format: date
+          example: "2026-06-25"
+        categoryId:
+          type: integer
+          format: int64
+          example: 1
+        userId:
+          type: string
+          format: uuid
+          example: "987f6543-e21b-34d5-c678-987654321000"

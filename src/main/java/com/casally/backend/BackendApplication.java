@@ -1,4 +1,4 @@
-package com.hogar.backend;
+package com.casally.backend;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

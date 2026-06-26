@@ -1,4 +1,4 @@
-package com.hogar.backend;
+package com.casally.backend;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
